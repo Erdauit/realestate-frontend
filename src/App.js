@@ -8,7 +8,7 @@ function App() {
     const [selected, setSelected] = useState(null);
 
     useEffect(() => {
-        let url = 'http://localhost:8000/api/properties/';
+        let url = `${process.env.REACT_APP_API_URL}/properties/`;
         if (filter) url += `?type=${filter}`;
         axios.get(url).then(res => setProperties(res.data));
     }, [filter]);
@@ -28,7 +28,11 @@ function App() {
             </div>
 
             {selected && (
-                <div style={{ position: 'fixed', top: 50, left: 50, background: '#fff', padding: 20 }}>
+                <div style={{
+                    position: 'fixed', top: 50, left: 50,
+                    background: '#fff', padding: 20,
+                    border: '1px solid #ccc', zIndex: 10
+                }}>
                     <h2>{selected.title}</h2>
                     <p><strong>ЖК:</strong> {selected.complex_name}</p>
                     <p>{selected.description}</p>
